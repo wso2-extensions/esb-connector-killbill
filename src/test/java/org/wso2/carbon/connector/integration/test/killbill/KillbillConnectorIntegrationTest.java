@@ -596,5 +596,4 @@ public class KillbillConnectorIntegrationTest extends ConnectorIntegrationTestBa
         Assert.assertEquals(apiRestResponse.getHttpStatusCode(), 200);
         Assert.assertEquals(esbRestResponse.getBody().toString(), apiRestResponse.getBody().toString());
     }
-
 }

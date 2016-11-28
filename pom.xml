@@ -26,7 +26,6 @@
     <packaging>bundle</packaging>
     <name>WSO2 Carbon - Connector For Kill Bill</name>
     <url>http://wso2.org</url>
-
     <properties>
         <axis2.osgi.version.range>1.7.1</axis2.osgi.version.range>
         <axiom.osgi.version.range>1.2.5</axiom.osgi.version.range>
@@ -42,7 +41,6 @@
         <org.testng.version>6.1.1</org.testng.version>
         <integration.base.version>1.0.1</integration.base.version>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.wso2.carbon.mediation</groupId>
