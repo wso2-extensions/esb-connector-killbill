@@ -1,0 +1,10 @@
+{
+  "apiUrl": "%s(apiUrl)",
+  "username":"%s(username)",
+  "password":"%s(password)",
+  "apiKey": "%s(apiKey)",
+  "apiSecret":"%s(apiSecret)",
+  "apiVersion": "%s(apiVersion)",
+  "invoiceId": "%s(invoiceId)"
+}
+

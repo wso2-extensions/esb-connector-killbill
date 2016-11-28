@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+
+   WSO2 Inc. licenses this file to you under the Apache License,
+   Version 2.0 (the "License"); you may not use this file except
+   in compliance with the License.
+   You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied. See the License for the
+   specific language governing permissions and pluginPropertyations
+   under the License.
+-->
+<template xmlns="http://ws.apache.org/ns/synapse" name="deletePaymentMethod">
+    <parameter name="paymentMethodId" description="The id of the payment method."/>
+    <parameter name="deleteDefaultPmWithAutoPayOff" description="Set true/false to delete default payment method with auto payoff."/>
+    <parameter name="pluginProperty" description="The plugin property of the payment method."/>
+    <parameter name="createdBy" description="The creator of this payment method call."/>
+    <parameter name="reason" description="The reason for deleting the payment method."/>
+    <parameter name="comment" description="The comment for the payment method."/>
+    <sequence>
+        <property name="uri.var.paymentMethodId" expression="$func:paymentMethodId"/>
+        <property name="deleteDefaultPmWithAutoPayOff" expression="$func:deleteDefaultPmWithAutoPayOff"/>
+        <property name="pluginProperty" expression="$func:pluginProperty"/>
+        <property name="createdBy" expression="$func:createdBy"/>
+        <property name="reason" expression="$func:reason"/>
+        <property name="comment" expression="$func:comment"/>
+        <script language="js">
+            <![CDATA[
+                var deleteDefaultPmWithAutoPayOff = mc.getProperty("deleteDefaultPmWithAutoPayOff");
+                var pluginProperty = mc.getProperty("pluginProperty");
+
+                var urlQuery = '';
+                if (deleteDefaultPmWithAutoPayOff != null && deleteDefaultPmWithAutoPayOff != ""){
+                   urlQuery += 'deleteDefaultPmWithAutoPayOff=' + deleteDefaultPmWithAutoPayOff + '&';
+                }
+                if (pluginProperty != null && pluginProperty != ""){
+                   urlQuery += 'pluginProperty=' + pluginProperty + '&';
+                }
+                if (urlQuery != null && urlQuery != ""){
+                   urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+                }
+                mc.setProperty('uri.var.urlQuery',urlQuery);
+            ]]>
+        </script>
+        <header name="X-Killbill-CreatedBy" expression="$ctx:createdBy" scope="transport"/>
+        <header name="X-Killbill-Reason" expression="$ctx:reason" scope="transport"/>
+        <header name="X-Killbill-Comment" expression="$ctx:comment" scope="transport"/>
+        <filter source="$ctx:killbill.blocking" regex="true">
+            <then>
+                <call blocking="true">
+                    <endpoint>
+                        <http method="get"
+                              uri-template="{uri.var.apiUrl}/{uri.var.apiVersion}/kb/paymentMethods/{uri.var.paymentMethodId}{+uri.var.urlQuery}"/>
+                    </endpoint>
+                </call>
+            </then>
+            <else>
+                <call>
+                    <endpoint>
+                        <http method="get"
+                              uri-template="{uri.var.apiUrl}/{uri.var.apiVersion}/kb/paymentMethods/{uri.var.paymentMethodId}{+uri.var.urlQuery}"/>
+                    </endpoint>
+                </call>
+            </else>
+        </filter>
+    </sequence>
+</template>

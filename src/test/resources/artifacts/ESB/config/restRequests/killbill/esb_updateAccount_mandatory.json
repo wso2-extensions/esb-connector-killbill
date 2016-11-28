@@ -1,0 +1,15 @@
+{
+  "apiUrl": "%s(apiUrl)",
+  "username":"%s(username)",
+  "password":"%s(password)",
+  "apiKey": "%s(apiKey)",
+  "apiSecret":"%s(apiSecret)",
+  "apiVersion": "%s(apiVersion)",
+  "externalKey": "%s(externalKey)",
+  "accountId":"%s(accountId)",
+  "currency":"%s(currency)",
+  "name": "%s(name)",
+  "createdBy": "%s(createdBy)",
+  "email": "%s(updateEmail)"
+}
+

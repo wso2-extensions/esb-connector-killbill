@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ ~  Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ ~
+ ~  WSO2 Inc. licenses this file to you under the Apache License,
+ ~  Version 2.0 (the "License"); you may not use this file except
+ ~  in compliance with the License.
+ ~  You may obtain a copy of the License at
+ ~
+ ~    http://www.apache.org/licenses/LICENSE-2.0
+ ~
+ ~  Unless required by applicable law or agreed to in writing,
+ ~  software distributed under the License is distributed on an
+ ~  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ ~  KIND, either express or implied.  See the License for the
+ ~  specific language governing permissions and limitations
+ ~  under the License.
+-->
+<proxy xmlns="http://ws.apache.org/ns/synapse"
+       name="killbill" transports="https http"
+       startOnLoad="true">
+    <description/>
+    <target>
+        <inSequence>
+
+            <property name="apiUrl" expression="json-eval($.apiUrl)"/>
+            <property name="username" expression="json-eval($.username)"/>
+            <property name="password" expression="json-eval($.password)"/>
+            <property name="apiKey" expression="json-eval($.apiKey)"/>
+            <property name="apiVersion" expression="json-eval($.apiVersion)"/>
+            <property name="apiSecret" expression="json-eval($.apiSecret)"/>
+            <property name="blocking" expression="json-eval($.blocking)"/>
+
+            <property name="accountId" expression="json-eval($.accountId)"/>
+            <property name="externalKey" expression="json-eval($.externalKey)"/>
+            <property name="accountCBA" expression="json-eval($.accountCBA)"/>
+            <property name="accountBalance" expression="json-eval($.accountBalance)"/>
+            <property name="name" expression="json-eval($.name)"/>
+            <property name="firstNameLength" expression="json-eval($.firstNameLength)"/>
+            <property name="email" expression="json-eval($.email)"/>
+            <property name="billCycleDayLocal" expression="json-eval($.billCycleDayLocal)"/>
+            <property name="currency" expression="json-eval($.currency)"/>
+            <property name="paymentMethodId" expression="json-eval($.paymentMethodId)"/>
+            <property name="timeZone" expression="json-eval($.timeZone)"/>
+            <property name="address1" expression="json-eval($.address1)"/>
+            <property name="address2" expression="json-eval($.address2)"/>
+            <property name="postalCode" expression="json-eval($.postalCode)"/>
+            <property name="company" expression="json-eval($.company)"/>
+            <property name="city" expression="json-eval($.city)"/>
+            <property name="state" expression="json-eval($.state)"/>
+            <property name="country" expression="json-eval($.country)"/>
+            <property name="locale" expression="json-eval($.locale)"/>
+            <property name="phone" expression="json-eval($.phone)"/>
+            <property name="isMigrated" expression="json-eval($.isMigrated)"/>
+            <property name="isNotifiedForInvoices" expression="json-eval($.isNotifiedForInvoices)"/>
+            <property name="auditLogs" expression="json-eval($.auditLogs)"/>
+            <property name="createdBy" expression="json-eval($.createdBy)"/>
+
+            <property name="accountWithBalance" expression="json-eval($.accountWithBalance)"/>
+            <property name="accountWithBalanceAndCBA" expression="json-eval($.accountWithBalanceAndCBA)"/>
+            <property name="offset" expression="json-eval($.offset)"/>
+            <property name="limit" expression="json-eval($.limit)"/>
+            <property name="audit" expression="json-eval($.audit)"/>
+
+            <property name="searchKey" expression="json-eval($.searchKey)"/>
+
+            <property name="pluginProperty" expression="json-eval($.pluginProperty)"/>
+            <property name="withPluginInfo" expression="json-eval($.withPluginInfo)"/>
+            <property name="withItems" expression="json-eval($.withItems)"/>
+            <property name="unpaidInvoicesOnly" expression="json-eval($.unpaidInvoicesOnly)"/>
+
+            <property name="isDefault" expression="json-eval($.isDefault)"/>
+            <property name="pluginName" expression="json-eval($.pluginName)"/>
+            <property name="pluginInfo" expression="json-eval($.pluginInfo)"/>
+            <property name="reason" expression="json-eval($.reason)"/>
+            <property name="comment" expression="json-eval($.comment)"/>
+
+            <property name="bundleId" expression="json-eval($.bundleId)"/>
+            <property name="subscriptionId" expression="json-eval($.subscriptionId)"/>
+            <property name="productName" expression="json-eval($.productName)"/>
+            <property name="productCategory" expression="json-eval($.productCategory)"/>
+            <property name="billingPeriod" expression="json-eval($.billingPeriod)"/>
+            <property name="phaseType" expression="json-eval($.phaseType)"/>
+            <property name="priceList" expression="json-eval($.priceList)"/>
+            <property name="sourceType" expression="json-eval($.sourceType)"/>
+            <property name="cancelledDate" expression="json-eval($.cancelledDate)"/>
+            <property name="chargedThroughDate" expression="json-eval($.chargedThroughDate)"/>
+            <property name="billingStartDate" expression="json-eval($.billingStartDate)"/>
+            <property name="billingEndDate" expression="json-eval($.billingEndDate)"/>
+            <property name="events" expression="json-eval($.events)"/>
+            <property name="priceOverrides" expression="json-eval($.priceOverrides)"/>
+            <property name="requestedDate" expression="json-eval($.requestedDate)"/>
+            <property name="callCompletion" expression="json-eval($.callCompletion)"/>
+            <property name="callTimeoutSec" expression="json-eval($.callTimeoutSec)"/>
+
+            <property name="entitlementPolicy" expression="json-eval($.entitlementPolicy)"/>
+            <property name="billingPolicy" expression="json-eval($.billingPolicy)"/>
+            <property name="useRequestedDateForBilling" expression="json-eval($.useRequestedDateForBilling)"/>
+
+
+            <property name="transactionId" expression="json-eval($.transactionId)"/>
+            <property name="transactionExternalKey" expression="json-eval($.transactionExternalKey)"/>
+            <property name="paymentId" expression="json-eval($.paymentId)"/>
+            <property name="paymentExternalKey" expression="json-eval($.paymentExternalKey)"/>
+            <property name="transactionType" expression="json-eval($.transactionType)"/>
+            <property name="effectiveDate" expression="json-eval($.effectiveDate)"/>
+            <property name="status" expression="json-eval($.status)"/>
+            <property name="amount" expression="json-eval($.amount)"/>
+            <property name="gatewayErrorCode" expression="json-eval($.gatewayErrorCode)"/>
+            <property name="gatewayErrorMsg" expression="json-eval($.gatewayErrorMsg)"/>
+            <property name="firstPaymentReferenceId" expression="json-eval($.firstPaymentReferenceId)"/>
+            <property name="secondPaymentReferenceId" expression="json-eval($.secondPaymentReferenceId)"/>
+            <property name="properties" expression="json-eval($.properties)"/>
+
+            <property name="invoiceId" expression="json-eval($.invoiceId)"/>
+            <property name="deleteDefaultPmWithAutoPayOff" expression="json-eval($.deleteDefaultPmWithAutoPayOff)"/>
+
+            <property name="startDate" expression="json-eval($.startDate)"/>
+            <property name="endDate" expression="json-eval($.endDate)"/>
+
+            <property name="action" expression="get-property('transport','Action')"/>
+            <killbill.init>
+                <apiUrl>{$ctx:apiUrl}</apiUrl>
+                <username>{$ctx:username}</username>
+                <password>{$ctx:password}</password>
+                <apiKey>{$ctx:apiKey}</apiKey>
+                <apiVersion>{$ctx:apiVersion}</apiVersion>
+                <apiSecret>{$ctx:apiSecret}</apiSecret>
+                <blocking>{$ctx:blocking}</blocking>
+            </killbill.init>
+            <switch source="get-property('action')">
+                <case regex="urn:createAccount">
+                    <killbill.createAccount>
+                        <accountId>{$ctx:accountId}</accountId>
+                        <externalKey>{$ctx:externalKey}</externalKey>
+                        <accountCBA>{$ctx:accountCBA}</accountCBA>
+                        <accountBalance>{$ctx:accountBalance}</accountBalance>
+                        <name>{$ctx:name}</name>
+                        <firstNameLength>{$ctx:firstNameLength}</firstNameLength>
+                        <email>{$ctx:email}</email>
+                        <billCycleDayLocal>{$ctx:billCycleDayLocal}</billCycleDayLocal>
+                        <currency>{$ctx:currency}</currency>
+                        <paymentMethodId>{$ctx:paymentMethodId}</paymentMethodId>
+                        <timeZone>{$ctx:timeZone}</timeZone>
+                        <address1>{$ctx:address1}</address1>
+                        <address2>{$ctx:address2}</address2>
+                        <postalCode>{$ctx:postalCode}</postalCode>
+                        <company>{$ctx:company}</company>
+                        <city>{$ctx:city}</city>
+                        <state>{$ctx:state}</state>
+                        <country>{$ctx:country}</country>
+                        <locale>{$ctx:locale}</locale>
+                        <phone>{$ctx:phone}</phone>
+                        <isMigrated>{$ctx:isMigrated}</isMigrated>
+                        <isNotifiedForInvoices>{$ctx:isNotifiedForInvoices}</isNotifiedForInvoices>
+                        <auditLogs>{$ctx:auditLogs}</auditLogs>
+                        <createdBy>{$ctx:createdBy}</createdBy>
+                    </killbill.createAccount>
+                </case>
+                <case regex="urn:updateAccount">
+                <killbill.updateAccount>
+                    <accountId>{$ctx:accountId}</accountId>
+                    <externalKey>{$ctx:externalKey}</externalKey>
+                    <accountCBA>{$ctx:accountCBA}</accountCBA>
+                    <accountBalance>{$ctx:accountBalance}</accountBalance>
+                    <name>{$ctx:name}</name>
+                    <firstNameLength>{$ctx:firstNameLength}</firstNameLength>
+                    <email>{$ctx:email}</email>
+                    <billCycleDayLocal>{$ctx:billCycleDayLocal}</billCycleDayLocal>
+                    <currency>{$ctx:currency}</currency>
+                    <paymentMethodId>{$ctx:paymentMethodId}</paymentMethodId>
+                    <timeZone>{$ctx:timeZone}</timeZone>
+                    <address1>{$ctx:address1}</address1>
+                    <address2>{$ctx:address2}</address2>
+                    <postalCode>{$ctx:postalCode}</postalCode>
+                    <company>{$ctx:company}</company>
+                    <city>{$ctx:city}</city>
+                    <state>{$ctx:state}</state>
+                    <country>{$ctx:country}</country>
+                    <locale>{$ctx:locale}</locale>
+                    <phone>{$ctx:phone}</phone>
+                    <isMigrated>{$ctx:isMigrated}</isMigrated>
+                    <isNotifiedForInvoices>{$ctx:isNotifiedForInvoices}</isNotifiedForInvoices>
+                    <auditLogs>{$ctx:auditLogs}</auditLogs>
+                    <createdBy>{$ctx:createdBy}</createdBy>
+                    <reason>{$ctx:reason}</reason>
+                    <comment>{$ctx:comment}</comment>
+                </killbill.updateAccount>
+            </case>
+                <case regex="urn:getAccountByExternalKey">
+                    <killbill.getAccountByExternalKey>
+                        <externalKey>{$ctx:externalKey}</externalKey>
+                        <accountWithBalance>{$ctx:accountWithBalance}</accountWithBalance>
+                        <accountWithBalanceAndCBA>{$ctx:accountWithBalanceAndCBA}</accountWithBalanceAndCBA>
+                        <audit>{$ctx:audit}</audit>
+                    </killbill.getAccountByExternalKey>
+                </case>
+                <case regex="urn:getAccountById">
+                    <killbill.getAccountById>
+                        <accountId>{$ctx:accountId}</accountId>
+                        <accountWithBalance>{$ctx:accountWithBalance}</accountWithBalance>
+                        <accountWithBalanceAndCBA>{$ctx:accountWithBalanceAndCBA}</accountWithBalanceAndCBA>
+                        <audit>{$ctx:audit}</audit>
+                    </killbill.getAccountById>
+                </case>
+                <case regex="urn:getUsageOfSubscription">
+                    <killbill.getUsageOfSubscription>
+                        <subscriptionId>{$ctx:subscriptionId}</subscriptionId>
+                        <startDate>{$ctx:startDate}</startDate>
+                        <endDate>{$ctx:endDate}</endDate>
+                    </killbill.getUsageOfSubscription>
+                </case>
+                <case regex="urn:searchAccount">
+                    <killbill.searchAccount>
+                        <searchKey>{$ctx:searchKey}</searchKey>
+                        <accountWithBalance>{$ctx:accountWithBalance}</accountWithBalance>
+                        <accountWithBalanceAndCBA>{$ctx:accountWithBalanceAndCBA}</accountWithBalanceAndCBA>
+                        <offset>{$ctx:offset}</offset>
+                        <limit>{$ctx:limit}</limit>
+                        <audit>{$ctx:audit}</audit>
+                    </killbill.searchAccount>
+                </case>
+                <case regex="urn:getInvoicePaymentsOfAccount">
+                    <killbill.getInvoicePaymentsOfAccount>
+                        <accountId>{$ctx:accountId}</accountId>
+                        <pluginProperty>{$ctx:pluginProperty}</pluginProperty>
+                        <withPluginInfo>{$ctx:withPluginInfo}</withPluginInfo>
+                        <audit>{$ctx:audit}</audit>
+                    </killbill.getInvoicePaymentsOfAccount>
+                </case>
+                <case regex="urn:getInvoicesOfAccount">
+                    <killbill.getInvoicesOfAccount>
+                        <accountId>{$ctx:accountId}</accountId>
+                        <withItems>{$ctx:withItems}</withItems>
+                        <unpaidInvoicesOnly>{$ctx:unpaidInvoicesOnly}</unpaidInvoicesOnly>
+                        <audit>{$ctx:audit}</audit>
+                    </killbill.getInvoicesOfAccount>
+                </case>
+                <case regex="urn:getPaymentMethodsOfAccount">
+                    <killbill.getPaymentMethodsOfAccount>
+                        <accountId>{$ctx:accountId}</accountId>
+                        <pluginProperty>{$ctx:pluginProperty}</pluginProperty>
+                        <withPluginInfo>{$ctx:withPluginInfo}</withPluginInfo>
+                        <audit>{$ctx:audit}</audit>
+                    </killbill.getPaymentMethodsOfAccount>
+                </case>
+                <case regex="urn:getPaymentsOfAccount">
+                    <killbill.getPaymentsOfAccount>
+                        <accountId>{$ctx:accountId}</accountId>
+                        <pluginProperty>{$ctx:pluginProperty}</pluginProperty>
+                        <withPluginInfo>{$ctx:withPluginInfo}</withPluginInfo>
+                        <audit>{$ctx:audit}</audit>
+                    </killbill.getPaymentsOfAccount>
+                </case>
+                <case regex="urn:addPaymentMethod">
+                    <killbill.addPaymentMethod>
+                        <accountId>{$ctx:accountId}</accountId>
+                        <externalKey>{$ctx:externalKey}</externalKey>
+                        <paymentMethodId>{$ctx:paymentMethodId}</paymentMethodId>
+                        <isDefault>{$ctx:isDefault}</isDefault>
+                        <pluginName>{$ctx:pluginName}</pluginName>
+                        <pluginInfo>{$ctx:pluginInfo}</pluginInfo>
+                        <auditLogs>{$ctx:auditLogs}</auditLogs>
+                        <createdBy>{$ctx:createdBy}</createdBy>
+                        <reason>{$ctx:reason}</reason>
+                        <comment>{$ctx:comment}</comment>
+                    </killbill.addPaymentMethod>
+                </case>
+
+                <case regex="urn:createSubscription">
+                    <killbill.createSubscription>
+                        <accountId>{$ctx:accountId}</accountId>
+                        <externalKey>{$ctx:externalKey}</externalKey>
+                        <bundleId>{$ctx:bundleId}</bundleId>
+                        <subscriptionId>{$ctx:subscriptionId}</subscriptionId>
+                        <startDate>{$ctx:startDate}</startDate>
+                        <productName>{$ctx:productName}</productName>
+                        <productCategory>{$ctx:productCategory}</productCategory>
+                        <billingPeriod>{$ctx:billingPeriod}</billingPeriod>
+                        <phaseType>{$ctx:phaseType}</phaseType>
+                        <priceList>{$ctx:priceList}</priceList>
+                        <sourceType>{$ctx:sourceType}</sourceType>
+                        <cancelledDate>{$ctx:cancelledDate}</cancelledDate>
+                        <chargedThroughDate>{$ctx:chargedThroughDate}</chargedThroughDate>
+                        <billingStartDate>{$ctx:billingStartDate}</billingStartDate>
+                        <state>{$ctx:state}</state>
+                        <billingEndDate>{$ctx:billingEndDate}</billingEndDate>
+                        <events>{$ctx:events}</events>
+                        <priceOverrides>{$ctx:priceOverrides}</priceOverrides>
+                        <requestedDate>{$ctx:requestedDate}</requestedDate>
+                        <callCompletion>{$ctx:callCompletion}</callCompletion>
+                        <callTimeoutSec>{$ctx:callTimeoutSec}</callTimeoutSec>
+                        <pluginProperty>{$ctx:pluginProperty}</pluginProperty>
+                        <auditLogs>{$ctx:auditLogs}</auditLogs>
+                        <createdBy>{$ctx:createdBy}</createdBy>
+                        <reason>{$ctx:reason}</reason>
+                        <comment>{$ctx:comment}</comment>
+                    </killbill.createSubscription>
+                </case>
+
+                <case regex="urn:updateSubscription">
+                    <killbill.updateSubscription>
+                        <accountId>{$ctx:accountId}</accountId>
+                        <externalKey>{$ctx:externalKey}</externalKey>
+                        <bundleId>{$ctx:bundleId}</bundleId>
+                        <subscriptionId>{$ctx:subscriptionId}</subscriptionId>
+                        <startDate>{$ctx:startDate}</startDate>
+                        <productName>{$ctx:productName}</productName>
+                        <productCategory>{$ctx:productCategory}</productCategory>
+                        <billingPeriod>{$ctx:billingPeriod}</billingPeriod>
+                        <phaseType>{$ctx:phaseType}</phaseType>
+                        <priceList>{$ctx:priceList}</priceList>
+                        <sourceType>{$ctx:sourceType}</sourceType>
+                        <cancelledDate>{$ctx:cancelledDate}</cancelledDate>
+                        <chargedThroughDate>{$ctx:chargedThroughDate}</chargedThroughDate>
+                        <billingStartDate>{$ctx:billingStartDate}</billingStartDate>
+                        <state>{$ctx:state}</state>
+                        <billingEndDate>{$ctx:billingEndDate}</billingEndDate>
+                        <events>{$ctx:events}</events>
+                        <priceOverrides>{$ctx:priceOverrides}</priceOverrides>
+                        <requestedDate>{$ctx:requestedDate}</requestedDate>
+                        <callCompletion>{$ctx:callCompletion}</callCompletion>
+                        <callTimeoutSec>{$ctx:callTimeoutSec}</callTimeoutSec>
+                        <pluginProperty>{$ctx:pluginProperty}</pluginProperty>
+                        <auditLogs>{$ctx:auditLogs}</auditLogs>
+                        <createdBy>{$ctx:createdBy}</createdBy>
+                        <reason>{$ctx:reason}</reason>
+                        <comment>{$ctx:comment}</comment>
+                    </killbill.updateSubscription>
+                </case>
+
+                <case regex="urn:getSubscriptionById">
+                    <killbill.getSubscriptionById>
+                        <subscriptionId>{$ctx:subscriptionId}</subscriptionId>
+                    </killbill.getSubscriptionById>
+                </case>
+
+                <case regex="urn:deleteSubscription">
+                    <killbill.deleteSubscription>
+                        <subscriptionId>{$ctx:subscriptionId}</subscriptionId>
+                        <requestedDate>{$ctx:requestedDate}</requestedDate>
+                        <callCompletion>{$ctx:callCompletion}</callCompletion>
+                        <callTimeoutSec>{$ctx:callTimeoutSec}</callTimeoutSec>
+                        <pluginProperty>{$ctx:pluginProperty}</pluginProperty>
+                        <createdBy>{$ctx:createdBy}</createdBy>
+                        <reason>{$ctx:reason}</reason>
+                        <comment>{$ctx:comment}</comment>
+                        <entitlementPolicy>{$ctx:entitlementPolicy}</entitlementPolicy>
+                        <billingPolicy>{$ctx:billingPolicy}</billingPolicy>
+                        <useRequestedDateForBilling>{$ctx:useRequestedDateForBilling}</useRequestedDateForBilling>
+                    </killbill.deleteSubscription>
+                </case>
+
+                <case regex="urn:createPayment">
+                    <killbill.createPayment>
+                        <accountId>{$ctx:accountId}</accountId>
+                        <transactionId>{$ctx:transactionId}</transactionId>
+                        <transactionExternalKey>{$ctx:transactionExternalKey}</transactionExternalKey>
+                        <paymentId>{$ctx:paymentId}</paymentId>
+                        <paymentExternalKey>{$ctx:paymentExternalKey}</paymentExternalKey>
+                        <transactionType>{$ctx:transactionType}</transactionType>
+                        <effectiveDate>{$ctx:effectiveDate}</effectiveDate>
+                        <status>{$ctx:status}</status>
+                        <amount>{$ctx:amount}</amount>
+                        <currency>{$ctx:currency}</currency>
+                        <gatewayErrorCode>{$ctx:gatewayErrorCode}</gatewayErrorCode>
+                        <gatewayErrorMsg>{$ctx:gatewayErrorMsg}</gatewayErrorMsg>
+                        <firstPaymentReferenceId>{$ctx:firstPaymentReferenceId}</firstPaymentReferenceId>
+                        <secondPaymentReferenceId>{$ctx:secondPaymentReferenceId}</secondPaymentReferenceId>
+                        <properties>{$ctx:properties}</properties>
+                        <paymentMethodId>{$ctx:paymentMethodId}</paymentMethodId>
+                        <controlPluginName>{$ctx:controlPluginName}</controlPluginName>
+                        <pluginProperty>{$ctx:pluginProperty}</pluginProperty>
+                        <auditLogs>{$ctx:auditLogs}</auditLogs>
+                        <createdBy>{$ctx:createdBy}</createdBy>
+                        <reason>{$ctx:reason}</reason>
+                        <comment>{$ctx:comment}</comment>
+                    </killbill.createPayment>
+                </case>
+                <case regex="urn:getPaymentMethodById">
+                    <killbill.getPaymentMethodById>
+                        <paymentMethodId>{$ctx:paymentMethodId}</paymentMethodId>
+                        <pluginProperty>{$ctx:pluginProperty}</pluginProperty>
+                        <withPluginInfo>{$ctx:withPluginInfo}</withPluginInfo>
+                        <audit>{$ctx:audit}</audit>
+                    </killbill.getPaymentMethodById>
+                </case>
+                <case regex="urn:searchPaymentMethod">
+                    <killbill.searchPaymentMethod>
+                        <searchKey>{$ctx:searchKey}</searchKey>
+                        <pluginName>{$ctx:pluginName}</pluginName>
+                        <pluginProperty>{$ctx:pluginProperty}</pluginProperty>
+                        <withPluginInfo>{$ctx:withPluginInfo}</withPluginInfo>
+                        <offset>{$ctx:offset}</offset>
+                        <limit>{$ctx:limit}</limit>
+                        <audit>{$ctx:audit}</audit>
+                    </killbill.searchPaymentMethod>
+                </case>
+
+                <case regex="urn:deletePaymentMethod">
+                    <killbill.deletePaymentMethod>
+                        <paymentMethodId>{$ctx:paymentMethodId}</paymentMethodId>
+                        <deleteDefaultPmWithAutoPayOff>{$ctx:deleteDefaultPmWithAutoPayOff}</deleteDefaultPmWithAutoPayOff>
+                        <pluginProperty>{$ctx:pluginProperty}</pluginProperty>
+                        <createdBy>{$ctx:createdBy}</createdBy>
+                        <reason>{$ctx:reason}</reason>
+                        <comment>{$ctx:comment}</comment>
+                    </killbill.deletePaymentMethod>
+                </case>
+
+                <case regex="urn:getInvoiceById">
+                    <killbill.getInvoiceById>
+                        <invoiceId>{$ctx:invoiceId}</invoiceId>
+                        <withItems>{$ctx:withItems}</withItems>
+                        <audit>{$ctx:audit}</audit>
+                    </killbill.getInvoiceById>
+                </case>
+                <case regex="urn:searchInvoice">
+                    <killbill.searchInvoice>
+                        <searchKey>{$ctx:searchKey}</searchKey>
+                        <withItems>{$ctx:withItems}</withItems>
+                        <offset>{$ctx:offset}</offset>
+                        <limit>{$ctx:limit}</limit>
+                        <audit>{$ctx:audit}</audit>
+                    </killbill.searchInvoice>
+                </case>
+
+            </switch>
+            <respond/>
+        </inSequence>
+        <outSequence>
+            <send/>
+        </outSequence>
+    </target>
+</proxy>

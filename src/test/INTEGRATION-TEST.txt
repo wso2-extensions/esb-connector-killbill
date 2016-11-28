@@ -1,0 +1,67 @@
+Product: Integration tests for WSO2 ESB Kill Bill connector
+
+   Pre-requisites:
+
+    - Maven 3.x
+    - Java 1.8
+    - The org.wso2.esb.integration.integration-base project is required. The test suite has been configured to download this project automatically. If the automatic download fails, download the following project and compile it using the mvn clean install command to update your local repository:
+      https://github.com/wso2-extensions/esb-integration-base
+
+    Tested Platforms: 
+
+    - Ubuntu 16.04
+    - WSO2 ESB 5.0.0
+ 
+Steps to follow in setting integration test.
+ 1.  Download ESB 5.0.0 from official website.
+
+STEPS:
+
+01) Follow the below mentioned steps to setup the Kill Bill platform:
+
+    i)   Follow the steps in http://docs.killbill.io/0.16/getting_started.html#installation to install the Kill Bill.
+         
+    ii) Once you've installed : Use the following curl command to create a tenent.
+
+	curl -v \
+	     -X POST \
+	     -u admin:password \
+	     -H 'Content-Type: application/json' \
+	     -H 'X-Killbill-CreatedBy: admin' \
+	     -d '{"apiKey": "bob", "apiSecret": "lazar"}' \
+	     "http://127.0.0.1:8080/1.0/kb/tenants"
+	
+05)	Update the property file killbill.properties found in {KILLBILL_HOME}/src/test/resources/artifacts/ESB/connector/config as follows:
+	
+    i)     apiUrl             -  API endpoint to which the service calls are made. e.g. http://127.0.0.1:8080
+    ii)    username           -  Use the username which used to login into the Kill Bill.
+    iii)   password           -  Use the password which used to login into the Kill Bill.
+    iv)    apiKey             -  Use the apikey used in step 1.ii.
+    v)     apiSecret          -  Use the apiSecret used in step 1.ii.
+    vi)    apiVersion         -  The version if the Kill Bill API.
+    vii)   externalKey        -  Any string value .
+    viii)  apiVersion         -  The version if the Kill Bill API.
+    ix)    externalKey        -  Any string value for external key.
+     x)    email              -  Email address.
+    xi)    currency           -  USD.
+    ix)    name               -  Any string value.
+     x)    createdBy          -  Any string value.
+    xi)    updateEmail        -  Email address.   
+    ix)    searchKey          -  search key.
+     x)    pluginName         -  __EXTERNAL_PAYMENT__.
+    xi)    priceList          -  DEFAULT.
+    ix)    billingPeriod      -  MONTHLY.
+     x)    productCategory    -  BASE.
+    xi)    productName        -  Standard 
+    xi)    subscriptionExternalKey -  Any string value for external key.   
+    ix)    updateProductName  -  Sports.
+     x)    transactionType    -  AUTHORIZE.
+    xi)    amount             -  10
+    ix)    transactionExternalKey  -  INV-001-AUTH.
+     x)    invoiceSearchKey        -  1
+    xi)    startDate          -  Usage start date (2016-11-11).
+    Xi)    endDate            -  Usage end date (2016-11-21).
+
+
+06) Navigate to "{KILLBILL_HOME}" and run the following command.
+      $ mvn clean install

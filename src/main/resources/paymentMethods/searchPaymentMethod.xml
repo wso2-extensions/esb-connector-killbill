@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+
+   WSO2 Inc. licenses this file to you under the Apache License,
+   Version 2.0 (the "License"); you may not use this file except
+   in compliance with the License.
+   You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+<template xmlns="http://ws.apache.org/ns/synapse" name="searchPaymentMethod">
+    <parameter name="searchKey" description="The key for the payment method search."/>
+    <parameter name="offset" description="The offset for the search."/>
+    <parameter name="limit" description="The limit for the search."/>
+    <parameter name="pluginName" description="The plugin name."/>
+    <parameter name="pluginProperty" description="The plugin property."/>
+    <parameter name="audit" description="The audit level for the search."/>
+    <parameter name="withPluginInfo" description="Specify true to get plugin info."/>
+    <sequence>
+        <property name="uri.var.searchKey" expression="$func:searchKey"/>
+        <property name="offset" expression="$func:offset"/>
+        <property name="limit" expression="$func:limit"/>
+        <property name="pluginName" expression="$func:pluginName"/>
+        <property name="pluginProperty" expression="$func:pluginProperty"/>
+        <property name="audit" expression="$func:audit"/>
+        <property name="withPluginInfo" expression="$func:withPluginInfo"/>
+        <script language="js">
+            <![CDATA[
+                var offset = mc.getProperty("offset");
+                var limit = mc.getProperty("limit");
+                var pluginName = mc.getProperty("pluginName");
+                var pluginProperty = mc.getProperty("pluginProperty");
+                var withPluginInfo = mc.getProperty("withPluginInfo");
+                var audit = mc.getProperty("audit");
+
+                var urlQuery = '';
+                if (offset != null && offset != ""){
+                   urlQuery += 'offset=' + offset + '&';
+                }
+                if (limit != null && limit != ""){
+                   urlQuery += 'limit=' + limit + '&';
+                }
+                if (pluginName != null && pluginName != ""){
+                   urlQuery += 'pluginName=' + pluginName + '&';
+                }
+                if (pluginProperty != null && pluginProperty != ""){
+                   urlQuery += 'pluginProperty=' + pluginProperty + '&';
+                }
+                if (audit != null && audit != ""){
+                   urlQuery += 'audit=' + audit + '&';
+                }
+                if (withPluginInfo != null && withPluginInfo != ""){
+                   urlQuery += 'withPluginInfo=' + withPluginInfo + '&';
+                }
+                if (urlQuery != null && urlQuery != ""){
+                   urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+                }
+                mc.setProperty('uri.var.urlQuery',urlQuery);
+            ]]>
+        </script>
+        <filter source="$ctx:killbill.blocking" regex="true">
+            <then>
+                <call blocking="true">
+                    <endpoint>
+                        <http method="get"
+                              uri-template="{uri.var.apiUrl}/{uri.var.apiVersion}/kb/paymentMethods/search/{uri.var.searchKey}{+uri.var.urlQuery}"/>
+                    </endpoint>
+                </call>
+            </then>
+            <else>
+                <call>
+                    <endpoint>
+                        <http method="get"
+                              uri-template="{uri.var.apiUrl}/{uri.var.apiVersion}/kb/paymentMethods/search/{uri.var.searchKey}{+uri.var.urlQuery}"/>
+                    </endpoint>
+                </call>
+            </else>
+        </filter>
+    </sequence>
+</template>

@@ -1,0 +1,12 @@
+{
+  "apiUrl": "%s(apiUrl)",
+  "username":"%s(username)",
+  "password":"%s(password)",
+  "apiKey": "%s(apiKey)",
+  "apiSecret":"%s(apiSecret)",
+  "apiVersion": "%s(apiVersion)",
+  "accountId": "%s(accountId)",
+  "pluginName": "%s(pluginName)",
+  "createdBy":"%s(createdBy)"
+}
+

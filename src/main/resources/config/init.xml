@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+
+   WSO2 Inc. licenses this file to you under the Apache License,
+   Version 2.0 (the "License"); you may not use this file except
+   in compliance with the License.
+   You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+<template name="init" xmlns="http://ws.apache.org/ns/synapse">
+    <parameter name="username" description="The username of your account."/>
+    <parameter name="password" description="The password of your account."/>
+    <parameter name="apiKey" description="The apiKey of your user account."/>
+    <parameter name="apiSecret" description="The apiSecret of your user account."/>
+    <parameter name="apiUrl" description="The apiUrl of the Killbill API."/>
+    <parameter name="apiVersion" description="The apiVersion of the Killbill API."/>
+    <parameter name="blocking" description="Set to true to perform the blocking invocations to Killbill."/>
+    <sequence>
+        <property name="killbill.username" expression="$func:username"/>
+        <property name="killbill.password" expression="$func:password"/>
+        <property name="killbill.apiKey" expression="$func:apiKey"/>
+        <property name="killbill.apiSecret" expression="$func:apiSecret"/>
+        <property name="uri.var.apiUrl" expression="$func:apiUrl"/>
+        <property name="uri.var.apiVersion" expression="$func:apiVersion"/>
+        <property name="killbill.blocking" expression="$func:blocking"/>
+        <header name="X-Killbill-ApiKey" expression="$ctx:killbill.apiKey" scope="transport"/>
+        <header name="X-Killbill-ApiSecret" expression="$ctx:killbill.apiSecret" scope="transport"/>
+        <header name="Authorization"
+                expression="fn:concat('Basic ',base64Encode(fn:concat($ctx:killbill.username,':',$ctx:killbill.password)))"
+                scope="transport"/>
+    </sequence>
+</template>
