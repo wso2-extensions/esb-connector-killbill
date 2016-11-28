@@ -1,0 +1,176 @@
+<!--
+   Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+
+   WSO2 Inc. licenses this file to you under the Apache License,
+   Version 2.0 (the "License"); you may not use this file except
+   in compliance with the License.
+   You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+<template xmlns="http://ws.apache.org/ns/synapse" name="createPayment">
+    <parameter name="transactionId" description="The transaction id for the payment."/>
+    <parameter name="transactionExternalKey" description="The transaction externalKey for the payment."/>
+    <parameter name="paymentId" description="The payment id for the payment."/>
+    <parameter name="paymentExternalKey" description="The payment external key for the payment."/>
+    <parameter name="transactionType" description="The transaction type for the payment."/>
+    <parameter name="effectiveDate" description="The effective date for the payment."/>
+    <parameter name="status" description="The status for the payment."/>
+    <parameter name="amount" description="The amount for the payment."/>
+    <parameter name="currency" description="The currency for the payment."/>
+    <parameter name="gatewayErrorCode" description="The gateway error code for the payment."/>
+    <parameter name="gatewayErrorMsg" description="The gateway error msg for the payment."/>
+    <parameter name="firstPaymentReferenceId" description="The first payment reference id for the payment."/>
+    <parameter name="secondPaymentReferenceId" description="The second payment reference id for the payment."/>
+    <parameter name="properties" description="The properties for the payment."/>
+    <parameter name="accountId" description="The account id for the payment."/>
+    <parameter name="paymentMethodId" description="The payment method id for the payment."/>
+    <parameter name="controlPluginName" description="The control plugin name for the payment."/>
+    <parameter name="pluginProperty" description="The plugin property for the payment."/>
+    <parameter name="auditLogs" description="The audit logs for the payment."/>
+    <parameter name="createdBy" description="The creator for the payment."/>
+    <parameter name="reason" description="The reason for the payment."/>
+    <parameter name="comment" description="The comment for the payment."/>
+    <sequence>
+        <property name="uri.var.accountId" expression="$func:accountId"/>
+        <property name="uri.var.paymentMethodId" expression="$func:paymentMethodId"/>
+        <property name="transactionId" expression="$func:transactionId"/>
+        <property name="transactionExternalKey" expression="$func:transactionExternalKey"/>
+        <property name="paymentId" expression="$func:paymentId"/>
+        <property name="paymentExternalKey" expression="$func:paymentExternalKey"/>
+        <property name="transactionType" expression="$func:transactionType"/>
+        <property name="effectiveDate" expression="$func:effectiveDate"/>
+        <property name="status" expression="$func:status"/>
+        <property name="amount" expression="$func:amount"/>
+        <property name="currency" expression="$func:currency"/>
+        <property name="gatewayErrorCode" expression="$func:gatewayErrorCode"/>
+        <property name="gatewayErrorMsg" expression="$func:gatewayErrorMsg"/>
+        <property name="firstPaymentReferenceId" expression="$func:firstPaymentReferenceId"/>
+        <property name="secondPaymentReferenceId" expression="$func:secondPaymentReferenceId"/>
+        <property name="properties" expression="$func:properties"/>
+        <property name="controlPluginName" expression="$func:controlPluginName"/>
+        <property name="pluginProperty" expression="$func:pluginProperty"/>
+        <property name="auditLogs" expression="$func:auditLogs"/>
+        <property name="createdBy" expression="$func:createdBy"/>
+        <property name="reason" expression="$func:reason"/>
+        <property name="comment" expression="$func:comment"/>
+        <payloadFactory media-type="json">
+            <format>
+                {
+                }
+            </format>
+            <args/>
+        </payloadFactory>
+        <script language="js">
+            <![CDATA[
+                //request body param variables
+                var transactionId = mc.getProperty('transactionId');
+                var transactionExternalKey = mc.getProperty('transactionExternalKey');
+                var paymentId = mc.getProperty('paymentId');
+                var paymentExternalKey = mc.getProperty('paymentExternalKey');
+                var transactionType = mc.getProperty('transactionType');
+                var effectiveDate = mc.getProperty('effectiveDate');
+                var status = mc.getProperty('status');
+                var amount = mc.getProperty('amount');
+                var currency = mc.getProperty('currency');
+                var gatewayErrorCode = mc.getProperty('gatewayErrorCode');
+                var gatewayErrorMsg = mc.getProperty('gatewayErrorMsg');
+                var firstPaymentReferenceId = mc.getProperty('firstPaymentReferenceId');
+                var secondPaymentReferenceId = mc.getProperty('secondPaymentReferenceId');
+                var properties = mc.getProperty('properties');
+                var controlPluginName = mc.getProperty('controlPluginName');
+                var pluginProperty = mc.getProperty('pluginProperty');
+                var auditLogs = mc.getProperty('auditLogs');
+                //Get the existing payload
+                var payload = mc.getPayloadJSON();
+                if (transactionId != null && transactionId != "") {
+                   payload["transactionId"] = transactionId;
+                }
+                if (transactionExternalKey != null && transactionExternalKey != "") {
+                    payload["transactionExternalKey"] = transactionExternalKey;
+                }
+                if (paymentId != null && paymentId != "") {
+                    payload["paymentId"] = paymentId;
+                }
+                if (paymentExternalKey != null && paymentExternalKey != "") {
+                    payload["paymentExternalKey"] = paymentExternalKey;
+                }
+                if (transactionType != null && transactionType != "") {
+                    payload["transactionType"] = transactionType;
+                }
+                if (effectiveDate != null && effectiveDate != "") {
+                    payload["effectiveDate"] = effectiveDate;
+                }
+                if (status != null && status != "") {
+                    payload["status"] = status;
+                }
+                if (amount != null && amount != "") {
+                    payload["amount"] = amount;
+                }
+                if (currency != null && currency != "") {
+                    payload["currency"] = currency;
+                }
+                if (gatewayErrorCode != null && gatewayErrorCode != "") {
+                    payload["gatewayErrorCode"] = gatewayErrorCode;
+                }
+                if (gatewayErrorMsg != null && gatewayErrorMsg != "") {
+                    payload["gatewayErrorMsg"] = gatewayErrorMsg;
+                }
+                if (firstPaymentReferenceId != null && firstPaymentReferenceId != "") {
+                    payload["firstPaymentReferenceId"] = firstPaymentReferenceId;
+                }
+                if (secondPaymentReferenceId != null && secondPaymentReferenceId != "") {
+                    payload["secondPaymentReferenceId"] = secondPaymentReferenceId;
+                }
+                if (properties != null && properties != "") {
+                    payload["properties"] = eval( "(" + properties + ")" );
+                }
+                if (auditLogs != null && auditLogs != "" && auditLogs!="[]") {
+                    payload["auditLogs"] = eval( "(" + auditLogs + ")" );
+                }
+                //Set the newly constructed payload
+                mc.setPayloadJSON(payload);
+
+                var urlQuery = '';
+                if (pluginProperty != null && pluginProperty != ""){
+                    urlQuery += 'pluginProperty=' + pluginProperty + '&';
+                }
+                if (controlPluginName != null && controlPluginName != ""){
+                    urlQuery += 'controlPluginName=' + controlPluginName + '&';
+                }
+                if (urlQuery != null && urlQuery != ""){
+                    urlQuery = '&' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+                }
+                mc.setProperty('uri.var.urlQuery',urlQuery);
+            ]]>
+        </script>
+        <header name="X-Killbill-CreatedBy" expression="$ctx:createdBy" scope="transport"/>
+        <header name="X-Killbill-Reason" expression="$ctx:reason" scope="transport"/>
+        <header name="X-Killbill-Comment" expression="$ctx:comment" scope="transport"/>
+        <filter source="$ctx:killbill.blocking" regex="true">
+            <then>
+                <call blocking="true">
+                    <endpoint>
+                        <http method="post"
+                              uri-template="{uri.var.apiUrl}/{uri.var.apiVersion}/kb/accounts/{uri.var.accountId}/payments?paymentMethodId={uri.var.paymentMethodId}{+uri.var.urlQuery}"/>
+                    </endpoint>
+                </call>
+            </then>
+            <else>
+                <call>
+                    <endpoint>
+                        <http method="post"
+                              uri-template="{uri.var.apiUrl}/{uri.var.apiVersion}/kb/accounts/{uri.var.accountId}/payments?paymentMethodId={uri.var.paymentMethodId}{+uri.var.urlQuery}"/>
+                    </endpoint>
+                </call>
+            </else>
+        </filter>
+    </sequence>
+</template>

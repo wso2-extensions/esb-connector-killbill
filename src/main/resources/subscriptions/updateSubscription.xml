@@ -1,0 +1,215 @@
+<!--
+   Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+
+   WSO2 Inc. licenses this file to you under the Apache License,
+   Version 2.0 (the "License"); you may not use this file except
+   in compliance with the License.
+   You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+<template xmlns="http://ws.apache.org/ns/synapse" name="updateSubscription">
+    <parameter name="accountId" description="The id of the account."/>
+    <parameter name="externalKey" description="The external key for the subscription."/>
+    <parameter name="bundleId" description="The bundle id for the subscription."/>
+    <parameter name="subscriptionId" description="The id for the subscription."/>
+    <parameter name="startDate" description="The start date for the subscription."/>
+    <parameter name="productName" description="The product name for the subscription."/>
+    <parameter name="productCategory" description="The product category for the subscription."/>
+    <parameter name="billingPeriod" description="The billing period for the subscription."/>
+    <parameter name="phaseType" description="The phase type for the subscription."/>
+    <parameter name="priceList" description="The price list for the subscription."/>
+    <parameter name="sourceType" description="The source type for the subscription."/>
+    <parameter name="cancelledDate" description="The cancel date for the subscription."/>
+    <parameter name="chargedThroughDate" description="The charged through date for the subscription."/>
+    <parameter name="billingStartDate" description="The billing start date for the subscription."/>
+    <parameter name="state" description="The state for the subscription."/>
+    <parameter name="billingEndDate" description="The billing end date for the subscription."/>
+    <parameter name="events" description="The events for the subscription."/>
+    <parameter name="priceOverrides" description="The price overrides  for the subscription."/>
+    <parameter name="requestedDate" description="The price overrides for the subscription."/>
+    <parameter name="callCompletion" description="The requested date for the subscription."/>
+    <parameter name="callTimeoutSec" description="The call timeout sec for the subscription."/>
+    <parameter name="pluginProperty" description="The plugin property for the subscription."/>
+    <parameter name="auditLogs" description="The audit logs for the subscription."/>
+    <parameter name="createdBy" description="The creator of the subscription."/>
+    <parameter name="reason" description="The reason for the creation of subscription."/>
+    <parameter name="comment" description="The comment for the subscription."/>
+    <sequence>
+        <property name="uri.var.subscriptionId" expression="$func:subscriptionId"/>
+        <property name="requestedDate" expression="$func:requestedDate"/>
+        <property name="callCompletion" expression="$func:callCompletion"/>
+        <property name="callTimeoutSec" expression="$func:callTimeoutSec"/>
+        <property name="billingPolicy" expression="$func:billingPolicy"/>
+        <property name="uri.var.pluginProperty" expression="$func:pluginProperty"/>
+        <property name="accountId" expression="$func:accountId"/>
+        <property name="externalKey" expression="$func:externalKey"/>
+        <property name="bundleId" expression="$func:bundleId"/>
+        <property name="subscriptionId" expression="$func:subscriptionId"/>
+        <property name="name" expression="$func:name"/>
+        <property name="startDate" expression="$func:startDate"/>
+        <property name="email" expression="$func:email"/>
+        <property name="phaseType" expression="$func:phaseType"/>
+        <property name="sourceType" expression="$func:sourceType"/>
+        <property name="cancelledDate" expression="$func:cancelledDate"/>
+        <property name="chargedThroughDate" expression="$func:chargedThroughDate"/>
+        <property name="billingStartDate" expression="$func:billingStartDate"/>
+        <property name="state" expression="$func:state"/>
+        <property name="billingEndDate" expression="$func:billingEndDate"/>
+        <property name="events" expression="$func:events"/>
+        <property name="priceOverrides" expression="$func:priceOverrides"/>
+        <property name="requestedDate" expression="$func:requestedDate"/>
+        <property name="callCompletion" expression="$func:callCompletion"/>
+        <property name="callTimeoutSec" expression="$func:callTimeoutSec"/>
+        <property name="pluginProperty" expression="$func:pluginProperty"/>
+        <property name="auditLogs" expression="$func:auditLogs"/>
+        <property name="createdBy" expression="$func:createdBy"/>
+        <property name="reason" expression="$func:reason"/>
+        <property name="comment" expression="$func:comment"/>
+        <payloadFactory media-type="json">
+            <format>
+                {
+                    "productName":"$1",
+                    "productCategory":"$2",
+                    "billingPeriod":"$3",
+                    "priceList":"$4"
+                }
+            </format>
+            <args>
+                <arg expression="$func:productName"/>
+                <arg expression="$func:productCategory"/>
+                <arg expression="$func:billingPeriod"/>
+                <arg expression="$func:priceList"/>
+            </args>
+        </payloadFactory>
+        <script language="js">
+            <![CDATA[
+                //request body param variables
+                var accountId = mc.getProperty('accountId');
+                var externalKey = mc.getProperty('externalKey');
+                var bundleId = mc.getProperty('bundleId');
+                var subscriptionId = mc.getProperty('subscriptionId');
+                var startDate = mc.getProperty('startDate');
+                var phaseType = mc.getProperty('phaseType');
+                var sourceType = mc.getProperty('sourceType');
+                var cancelledDate = mc.getProperty('cancelledDate');
+                var chargedThroughDate = mc.getProperty('chargedThroughDate');
+                var billingStartDate = mc.getProperty('billingStartDate');
+                var state = mc.getProperty('state');
+                var billingEndDate = mc.getProperty('billingEndDate');
+                var events = mc.getProperty('events');
+                var priceOverrides = mc.getProperty('priceOverrides');
+                var requestedDate = mc.getProperty('requestedDate');
+                var callCompletion = mc.getProperty('callCompletion');
+                var callTimeoutSec = mc.getProperty('callTimeoutSec');
+                var pluginProperty = mc.getProperty('pluginProperty');
+                var auditLogs = mc.getProperty('auditLogs');
+                var billingPolicy = mc.getProperty('billingPolicy');
+                //Get the existing payload
+                var payload = mc.getPayloadJSON();
+                if (accountId != null && accountId != "") {
+                   payload["accountId"] = accountId;
+                }
+                if (externalKey != null && externalKey != "") {
+                   payload["externalKey"] = externalKey;
+                }
+                if (bundleId != null && bundleId != "") {
+                   payload["bundleId"] = bundleId;
+                }
+                if (subscriptionId != null && subscriptionId != "") {
+                   payload["subscriptionId"] = subscriptionId;
+                }
+                if (startDate != null && startDate != "") {
+                   payload["startDate"] = startDate;
+                }
+                if (phaseType != null && phaseType != "") {
+                   payload["phaseType"] = phaseType;
+                }
+                if (sourceType != null && sourceType != "") {
+                   payload["sourceType"] = sourceType;
+                }
+                if (cancelledDate != null && cancelledDate != "") {
+                   payload["cancelledDate"] = cancelledDate;
+                }
+                if (chargedThroughDate != null && chargedThroughDate != "") {
+                   payload["chargedThroughDate"] = chargedThroughDate;
+                }
+                if (billingStartDate != null && billingStartDate != "") {
+                   payload["billingStartDate"] = billingStartDate;
+                }
+                if (billingEndDate != null && billingEndDate != "") {
+                   payload["billingEndDate"] = billingEndDate;
+                }
+                if (events != null && events != "") {
+                   payload["events"] = events;
+                }
+                if (priceOverrides != null && priceOverrides != "") {
+                   payload["priceOverrides"] = priceOverrides;
+                }
+                if (requestedDate != null && requestedDate != "") {
+                   payload["requestedDate"] = requestedDate;
+                }
+                if (callCompletion != null && callCompletion != "") {
+                   payload["callCompletion"] = callCompletion;
+                }
+                if (priceOverrides != null && priceOverrides != "") {
+                   payload["priceOverrides"] = eval( "(" + priceOverrides + ")" );
+                }
+                if (auditLogs != null && auditLogs != "" && auditLogs!="[]") {
+                    payload["auditLogs"] = eval( "(" + auditLogs + ")" );
+                }
+                //Set the newly constructed payload
+                mc.setPayloadJSON(payload);
+
+                var urlQuery = '';
+                if (requestedDate != null && requestedDate != ""){
+                   urlQuery += 'requestedDate=' + requestedDate + '&';
+                }
+                if (callCompletion != null && callCompletion != ""){
+                   urlQuery += 'callCompletion=' + callCompletion + '&';
+                }
+                if (callTimeoutSec != null && callTimeoutSec != ""){
+                   urlQuery += 'callTimeoutSec=' + callTimeoutSec + '&';
+                }
+                if (billingPolicy != null && billingPolicy != ""){
+                   urlQuery += 'billingPolicy=' + billingPolicy + '&';
+                }
+                if (pluginProperty != null && pluginProperty != ""){
+                   urlQuery += 'pluginProperty=' + pluginProperty + '&';
+                }
+                if (urlQuery != null && urlQuery != ""){
+                   urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+                }
+                mc.setProperty('uri.var.urlQuery',urlQuery);
+            ]]>
+        </script>
+        <header name="X-Killbill-CreatedBy" expression="$ctx:createdBy" scope="transport"/>
+        <header name="X-Killbill-Reason" expression="$ctx:reason" scope="transport"/>
+        <header name="X-Killbill-Comment" expression="$ctx:comment" scope="transport"/>
+        <filter source="$ctx:killbill.blocking" regex="true">
+            <then>
+                <call blocking="true">
+                    <endpoint>
+                        <http method="put"
+                              uri-template="{uri.var.apiUrl}/{uri.var.apiVersion}/kb/subscriptions/{uri.var.subscriptionId}{+uri.var.urlQuery}"/>
+                    </endpoint>
+                </call>
+            </then>
+            <else>
+                <call>
+                    <endpoint>
+                        <http method="put"
+                              uri-template="{uri.var.apiUrl}/{uri.var.apiVersion}/kb/subscriptions/{uri.var.subscriptionId}{+uri.var.urlQuery}"/>
+                    </endpoint>
+                </call>
+            </else>
+        </filter>
+    </sequence>
+</template>

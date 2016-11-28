@@ -1,0 +1,128 @@
+<!--
+   Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+
+   WSO2 Inc. licenses this file to you under the Apache License,
+   Version 2.0 (the "License"); you may not use this file except
+   in compliance with the License.
+   You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+<template xmlns="http://ws.apache.org/ns/synapse" name="addPaymentMethod">
+    <parameter name="accountId" description="The accountId of the account."/>
+    <parameter name="externalKey" description="The externalKey of the payment method."/>
+    <parameter name="paymentMethodId" description="The id of the payment method."/>
+    <parameter name="isDefault" description="Specify the payment method is default."/>
+    <parameter name="pluginName" description="The plugin name of the payment method."/>
+    <parameter name="pluginInfo" description="The plugin info of the payment method."/>
+    <parameter name="auditLogs" description="The audit logs of the payment method."/>
+    <parameter name="createdBy" description="The creator of the payment method."/>
+    <parameter name="reason" description="The reason for addition of the payment method."/>
+    <parameter name="comment" description="The comments the payment method."/>
+    <parameter name="payAllUnpaidInvoices" description="To Specify true to pay all unpaid invoices."/>
+    <parameter name="pluginProperty" description="The plugin property."/>
+    <sequence>
+        <property name="uri.var.accountId" expression="$func:accountId"/>
+        <property name="externalKey" expression="$func:externalKey"/>
+        <property name="paymentMethodId" expression="$func:paymentMethodId"/>
+        <property name="isDefault" expression="$func:isDefault"/>
+        <property name="pluginName" expression="$func:pluginName"/>
+        <property name="pluginInfo" expression="$func:pluginInfo"/>
+        <property name="auditLogs" expression="$func:auditLogs"/>
+        <property name="createdBy" expression="$func:createdBy"/>
+        <property name="reason" expression="$func:reason"/>
+        <property name="comment" expression="$func:comment"/>
+        <property name="payAllUnpaidInvoices" expression="$func:payAllUnpaidInvoices"/>
+        <property name="pluginProperty" expression="$func:pluginProperty"/>
+        <payloadFactory media-type="json">
+            <format>
+                {
+                }
+            </format>
+            <args/>
+        </payloadFactory>
+        <script language="js">
+            <![CDATA[
+                //request body param variables
+                var accountId = mc.getProperty('uri.var.accountId');
+                var externalKey = mc.getProperty('externalKey');
+                var paymentMethodId = mc.getProperty('paymentMethodId');
+                var isDefault = mc.getProperty('isDefault');
+                var pluginName = mc.getProperty('pluginName');
+                var pluginInfo = mc.getProperty('pluginInfo');
+                var auditLogs = mc.getProperty('auditLogs');
+                var pluginProperty = mc.getProperty('pluginProperty');
+                var payAllUnpaidInvoices = mc.getProperty('payAllUnpaidInvoices');
+
+                //Get the existing payload
+                var payload = mc.getPayloadJSON();
+                if (accountId != null && accountId != "") {
+                   payload["accountId"] = accountId;
+                }
+                if (externalKey != null && externalKey != "") {
+                   payload["externalKey"] = externalKey;
+                }
+                if (paymentMethodId != null && paymentMethodId != "") {
+                   payload["paymentMethodId"] = paymentMethodId;
+                }
+                if (isDefault != null && isDefault != "") {
+                   payload["isDefault"] = isDefault;
+                }
+                if (pluginName != null && pluginName != "") {
+                   payload["pluginName"] = pluginName;
+                }
+                if (pluginInfo != null && pluginInfo != "") {
+                   payload["pluginInfo"] = eval( "(" + pluginInfo + ")" );
+                }
+                if (auditLogs != null && auditLogs != "" && auditLogs!="[]") {
+                   payload["auditLogs"] = eval( "(" + auditLogs + ")" );
+                }
+                //Set the newly constructed payload
+                mc.setPayloadJSON(payload);
+
+                var urlQuery = '';
+                if (pluginProperty != null && pluginProperty != ""){
+                   urlQuery += 'pluginProperty=' + pluginProperty + '&';
+                }
+                if (isDefault != null && isDefault != ""){
+                   urlQuery += 'isDefault=' + isDefault + '&';
+                }
+                if (payAllUnpaidInvoices != null && payAllUnpaidInvoices != ""){
+                   urlQuery += 'payAllUnpaidInvoices=' + payAllUnpaidInvoices + '&';
+                }
+                if (urlQuery != null && urlQuery != ""){
+                   urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+                }
+                mc.setProperty('uri.var.urlQuery',urlQuery);
+            ]]>
+        </script>
+        <header name="X-Killbill-CreatedBy" expression="$ctx:createdBy" scope="transport"/>
+        <header name="X-Killbill-Reason" expression="$ctx:reason" scope="transport"/>
+        <header name="X-Killbill-Comment" expression="$ctx:comment" scope="transport"/>
+        <filter source="$ctx:killbill.blocking" regex="true">
+            <then>
+                <call blocking="true">
+                    <endpoint>
+                        <http method="post"
+                              uri-template="{uri.var.apiUrl}/{uri.var.apiVersion}/kb/accounts/{uri.var.accountId}/paymentMethods{+uri.var.urlQuery}"/>
+                    </endpoint>
+                </call>
+            </then>
+            <else>
+                <call>
+                    <endpoint>
+                        <http method="post"
+                              uri-template="{uri.var.apiUrl}/{uri.var.apiVersion}/kb/accounts/{uri.var.accountId}/paymentMethods{+uri.var.urlQuery}"/>
+                    </endpoint>
+                </call>
+            </else>
+        </filter>
+    </sequence>
+</template>

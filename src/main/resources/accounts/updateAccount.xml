@@ -1,0 +1,204 @@
+<!--
+   Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+
+   WSO2 Inc. licenses this file to you under the Apache License,
+   Version 2.0 (the "License"); you may not use this file except
+   in compliance with the License.
+   You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+<template xmlns="http://ws.apache.org/ns/synapse" name="updateAccount">
+    <parameter name="accountId" description="The id of the account."/>
+    <parameter name="externalKey" description="The externalKey of the account."/>
+    <parameter name="accountCBA" description="The accountCBA of the account."/>
+    <parameter name="accountBalance" description="The account balance of the account."/>
+    <parameter name="name" description="The name of the account."/>
+    <parameter name="firstNameLength" description="The length of the first name."/>
+    <parameter name="email" description="The email address of the account."/>
+    <parameter name="billCycleDayLocal" description="The bill cycle day of the account."/>
+    <parameter name="currency" description="The email address of the account."/>
+    <parameter name="paymentMethodId" description="The payment  method id the account."/>
+    <parameter name="timeZone" description="The time zone of the account."/>
+    <parameter name="address1" description="The address of the account."/>
+    <parameter name="address2" description="The address of the account."/>
+    <parameter name="postalCode" description="The postal code of the account."/>
+    <parameter name="company" description="The company of the account."/>
+    <parameter name="city" description="The city of the account."/>
+    <parameter name="state" description="The state of the account."/>
+    <parameter name="country" description="The country of the account."/>
+    <parameter name="locale" description="The locale of the account."/>
+    <parameter name="phone" description="The phone of the account."/>
+    <parameter name="isMigrated" description="Specify is migrated."/>
+    <parameter name="isNotifiedForInvoices" description="Specify to notify for invoices."/>
+    <parameter name="auditLogs" description="Specify to include the audit logs."/>
+    <parameter name="createdBy" description="The email address of your user account."/>
+    <parameter name="reason" description="The email address of your user account."/>
+    <parameter name="comment" description="The email address of your user account."/>
+    <sequence>
+        <property name="uri.var.accountId" expression="$func:accountId"/>
+        <property name="externalKey" expression="$func:externalKey"/>
+        <property name="accountCBA" expression="$func:accountCBA"/>
+        <property name="accountBalance" expression="$func:accountBalance"/>
+        <property name="name" expression="$func:name"/>
+        <property name="firstNameLength" expression="$func:firstNameLength"/>
+        <property name="email" expression="$func:email"/>
+        <property name="billCycleDayLocal" expression="$func:billCycleDayLocal"/>
+        <property name="currency" expression="$func:currency"/>
+        <property name="paymentMethodId" expression="$func:paymentMethodId"/>
+        <property name="timeZone" expression="$func:timeZone"/>
+        <property name="address1" expression="$func:address1"/>
+        <property name="address2" expression="$func:address2"/>
+        <property name="postalCode" expression="$func:postalCode"/>
+        <property name="company" expression="$func:company"/>
+        <property name="city" expression="$func:city"/>
+        <property name="state" expression="$func:state"/>
+        <property name="country" expression="$func:country"/>
+        <property name="locale" expression="$func:locale"/>
+        <property name="phone" expression="$func:phone"/>
+        <property name="isMigrated" expression="$func:isMigrated"/>
+        <property name="isNotifiedForInvoices" expression="$func:isNotifiedForInvoices"/>
+        <property name="auditLogs" expression="$func:auditLogs"/>
+        <property name="createdBy" expression="$func:createdBy"/>
+        <property name="reason" expression="$func:reason"/>
+        <property name="comment" expression="$func:comment"/>
+        <payloadFactory media-type="json">
+            <format>
+                {
+                }
+            </format>
+            <args/>
+        </payloadFactory>
+        <script language="js">
+            <![CDATA[
+                //request body param variables
+                var accountId = mc.getProperty('accountId');
+                var externalKey = mc.getProperty('externalKey');
+                var accountCBA = mc.getProperty('accountCBA');
+                var accountBalance = mc.getProperty('accountBalance');
+                var name = mc.getProperty('name');
+                var firstNameLength = mc.getProperty('firstNameLength');
+                var email = mc.getProperty('email');
+                var billCycleDayLocal = mc.getProperty('billCycleDayLocal');
+                var currency = mc.getProperty('currency');
+                var paymentMethodId = mc.getProperty('paymentMethodId');
+                var timeZone = mc.getProperty('timeZone');
+                var address1 = mc.getProperty('address1');
+                var address2 = mc.getProperty('address2');
+                var postalCode = mc.getProperty('postalCode');
+                var company = mc.getProperty('company');
+                var city = mc.getProperty('city');
+                var country = mc.getProperty('country');
+                var locale = mc.getProperty('locale');
+                var phone = mc.getProperty('phone');
+                var isMigrated = mc.getProperty('isMigrated');
+                var isNotifiedForInvoices = mc.getProperty('isNotifiedForInvoices');
+                var auditLogs = mc.getProperty('auditLogs');
+                //Get the existing payload
+                var payload = mc.getPayloadJSON();
+                if (accountId != null && accountId != "") {
+                   payload["accountId"] = accountId;
+                }
+                if (externalKey != null && externalKey != "") {
+                   payload["externalKey"] = externalKey;
+                }
+                if (accountCBA != null && accountCBA != "") {
+                   payload["accountCBA"] = accountCBA;
+                }
+                if (accountBalance != null && accountBalance != "") {
+                   payload["accountBalance"] = accountBalance;
+                }
+                if (name != null && name != "") {
+                   payload["name"] = name;
+                }
+                if (firstNameLength != null && firstNameLength != "") {
+                   payload["firstNameLength"] = firstNameLength;
+                }
+                if (email != null && email != "") {
+                   payload["email"] = email;
+                }
+                if (billCycleDayLocal != null && billCycleDayLocal != "") {
+                   payload["billCycleDayLocal"] = billCycleDayLocal;
+                }
+                if (currency != null && currency != "") {
+                   payload["currency"] = currency;
+                }
+                if (paymentMethodId != null && paymentMethodId != "") {
+                   payload["paymentMethodId"] = paymentMethodId;
+                }
+                if (timeZone != null && timeZone != "") {
+                   payload["timeZone"] = timeZone;
+                }
+                if (address1 != null && address1 != "") {
+                   payload["address1"] = address1;
+                }
+                if (address2 != null && address2 != "") {
+                   payload["address2"] = address2;
+                }
+                if (postalCode != null && postalCode != "") {
+                   payload["postalCode"] = postalCode;
+                }
+                if (company != null && company != "") {
+                   payload["company"] = company;
+                }
+                if (city != null && city != "") {
+                   payload["city"] = city;
+                }
+                if (country != null && country != "") {
+                   payload["country"] = country;
+                }
+                if (locale != null && locale != "") {
+                   payload["locale"] = locale;
+                }
+                if (phone != null && phone != "") {
+                   payload["phone"] = phone;
+                }
+                if (isMigrated != null && isMigrated != "") {
+                   payload["isMigrated"] = isMigrated;
+                }
+                if (isNotifiedForInvoices != null && isNotifiedForInvoices != "") {
+                   payload["isNotifiedForInvoices"] = isNotifiedForInvoices;
+                }
+                if (phone != null && phone != "") {
+                   payload["phone"] = phone;
+                }
+                if (isMigrated != null && isMigrated != "") {
+                   payload["isMigrated"] = isMigrated;
+                }
+                if (auditLogs != null && auditLogs != "" && auditLogs!="[]") {
+                    payload["auditLogs"] = eval( "(" + auditLogs + ")" );
+                }
+                //Set the newly constructed payload
+                mc.setPayloadJSON(payload);
+            ]]>
+        </script>
+        <header name="X-Killbill-CreatedBy" expression="$ctx:createdBy" scope="transport"/>
+        <header name="X-Killbill-Reason" expression="$ctx:reason" scope="transport"/>
+        <header name="X-Killbill-Comment" expression="$ctx:comment" scope="transport"/>
+        <filter source="$ctx:killbill.blocking" regex="true">
+            <then>
+                <call blocking="true">
+                    <endpoint>
+                        <http method="put"
+                              uri-template="{uri.var.apiUrl}/{uri.var.apiVersion}/kb/accounts/{uri.var.accountId}"/>
+                    </endpoint>
+                </call>
+            </then>
+            <else>
+                <call>
+                    <endpoint>
+                        <http method="put"
+                              uri-template="{uri.var.apiUrl}/{uri.var.apiVersion}/kb/accounts/{uri.var.accountId}"/>
+                    </endpoint>
+                </call>
+            </else>
+        </filter>
+    </sequence>
+</template>

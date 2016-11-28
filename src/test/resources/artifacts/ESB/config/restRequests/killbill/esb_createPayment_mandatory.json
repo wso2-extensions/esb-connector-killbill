@@ -1,0 +1,16 @@
+{
+  "apiUrl": "%s(apiUrl)",
+  "username":"%s(username)",
+  "password":"%s(password)",
+  "apiKey": "%s(apiKey)",
+  "apiSecret":"%s(apiSecret)",
+  "apiVersion": "%s(apiVersion)",
+  "transactionType": "%s(transactionType)",
+  "amount":"%s(amount)",
+  "currency": "%s(currency)",
+  "createdBy": "%s(createdBy)",
+  "transactionExternalKey": "%s(transactionExternalKey)",
+  "accountId": "%s(accountId)",
+  "paymentMethodId": "%s(paymentMethodId)"
+}
+

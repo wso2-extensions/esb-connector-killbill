@@ -1,0 +1,16 @@
+{
+  "apiUrl": "%s(apiUrl)",
+  "username":"%s(username)",
+  "password":"%s(password)",
+  "apiKey": "%s(apiKey)",
+  "apiSecret":"%s(apiSecret)",
+  "apiVersion": "%s(apiVersion)",
+  "accountId": "%s(accountId)",
+  "externalKey": "%s(subscriptionExternalKey)",
+  "productName": "%s(productName)",
+  "productCategory": "%s(productCategory)",
+  "billingPeriod": "%s(billingPeriod)",
+  "priceList": "%s(priceList)",
+  "createdBy":"%s(createdBy)"
+}
+

@@ -1,0 +1,81 @@
+<!--
+   Copyright (c) 2016, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+
+   WSO2 Inc. licenses this file to you under the Apache License,
+   Version 2.0 (the "License"); you may not use this file except
+   in compliance with the License.
+   You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied. See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+<template xmlns="http://ws.apache.org/ns/synapse" name="searchAccount">
+    <parameter name="searchKey" description="The search key for the account search."/>
+    <parameter name="offset" description="The offset for the account search."/>
+    <parameter name="limit" description="The limit for the account search."/>
+    <parameter name="accountWithBalance" description="Specify true to get the account balance."/>
+    <parameter name="accountWithBalanceAndCBA" description="Specify true get the account balance and CBA."/>
+    <parameter name="audit" description="The audit level."/>
+    <sequence>
+        <property name="uri.var.searchKey" expression="$func:searchKey"/>
+        <property name="offset" expression="$func:offset"/>
+        <property name="limit" expression="$func:limit"/>
+        <property name="accountWithBalance" expression="$func:accountWithBalance"/>
+        <property name="accountWithBalanceAndCBA" expression="$func:accountWithBalanceAndCBA"/>
+        <property name="audit" expression="$func:audit"/>
+        <script language="js">
+            <![CDATA[
+                var offset = mc.getProperty("offset");
+                var limit = mc.getProperty("limit");
+                var accountWithBalance = mc.getProperty("accountWithBalance");
+                var accountWithBalanceAndCBA = mc.getProperty("accountWithBalanceAndCBA");
+                var audit = mc.getProperty("audit");
+
+                var urlQuery = '';
+                if (offset != null && offset != ""){
+                   urlQuery += 'offset=' + offset + '&';
+                }
+                if (limit != null && limit != ""){
+                   urlQuery += 'limit=' + limit + '&';
+                }
+                if (accountWithBalance != null && accountWithBalance != ""){
+                   urlQuery += 'accountWithBalance=' + accountWithBalance + '&';
+                }
+                if (accountWithBalanceAndCBA != null && accountWithBalanceAndCBA != ""){
+                   urlQuery += 'accountWithBalanceAndCBA=' + accountWithBalanceAndCBA + '&';
+                }
+                if (audit != null && audit != ""){
+                   urlQuery += 'audit=' + audit + '&';
+                }
+                if (urlQuery != null && urlQuery != ""){
+                   urlQuery = '?' + urlQuery.toString().substring(0, urlQuery.toString().lastIndexOf("&"));
+                }
+                mc.setProperty('uri.var.urlQuery',urlQuery);
+            ]]>
+        </script>
+        <filter source="$ctx:killbill.blocking" regex="true">
+            <then>
+                <call blocking="true">
+                    <endpoint>
+                        <http method="get"
+                              uri-template="{uri.var.apiUrl}/{uri.var.apiVersion}/kb/accounts/search/{uri.var.searchKey}{+uri.var.urlQuery}"/>
+                    </endpoint>
+                </call>
+            </then>
+            <else>
+                <call>
+                    <endpoint>
+                        <http method="get"
+                              uri-template="{uri.var.apiUrl}/{uri.var.apiVersion}/kb/accounts/search/{uri.var.searchKey}{+uri.var.urlQuery}"/>
+                    </endpoint>
+                </call>
+            </else>
+        </filter>
+    </sequence>
+</template>
