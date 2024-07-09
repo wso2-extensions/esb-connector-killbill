@@ -4,7 +4,7 @@
     "category": "Billing and Accounting",
     "documentationUrl": "https://docs.wso2.com/display/ESBCONNECTORS/Kill+Bill+Connector",
     "description": "The Kill Bill connector allows you to access the Kill Bill REST API through WSO2 ESB. Kill Bill is a platform for subscription billing and payments integration. Its plug-in architecture allows you to easily apply custom logic and integrate with third party systems.",
-    "status": "Unsupported",
+    "status": "Active",
     "labels": [
         "connector"
     ],
